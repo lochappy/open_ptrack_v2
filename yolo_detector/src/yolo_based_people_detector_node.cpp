@@ -244,9 +244,9 @@ void callback(const Image::ConstPtr& rgb_image,
 				cv::rectangle(image, cv::Point( newX, newY ), cv::Point( newX+ newWidth, newY+ newHeight), cv::Scalar( 0, 255, 0 ), 4);
 				cv::rectangle(image, cv::Point( boxes->boxes[i].x, boxes->boxes[i].y ), 
 									 cv::Point( boxes->boxes[i].x+ boxes->boxes[i].w, boxes->boxes[i].y+ boxes->boxes[i].h), cv::Scalar( 255, 0, 255 ), 10);
-				//cv::putText(image, ss.str(), cv::Point(30,30), cv::FONT_HERSHEY_COMPLEX_SMALL, 0.8, cv::Scalar(200,200,250), 1, CV_AA);
-                cv::imshow("image",image);
-                cv::waitKey(1);
+                //cv::putText(image, ss.str(), cv::Point(30,30), cv::FONT_HERSHEY_COMPLEX_SMALL, 0.8, cv::Scalar(200,200,250), 1, CV_AA);
+                //cv::imshow("image",image);
+                //cv::waitKey(1);
 			}
 			
 			float mx =  (medianX - _cx) * medianDepth * _constant_x;
