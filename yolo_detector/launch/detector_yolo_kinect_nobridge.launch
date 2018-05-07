@@ -13,8 +13,8 @@
     <param name="thresh"                              value="0.25"/>  
     <param name="heir_thresh"                     value="0.5"/>  
     <param name="data_cfg"                   value="$(find yolo_detector)/darknet_opt/cfg/coco.data"/>
-    <param name="yolo_cfg"                  value="$(find yolo_detector)/darknet_opt/cfg/yolo.cfg"/>
-    <param name="weight_file"                      value="$(find yolo_detector)/darknet_opt/yolo.weights"/>
+    <param name="yolo_cfg"                  value="$(find yolo_detector)/darknet_opt/cfg/yolov3.cfg"/>
+    <param name="weight_file"                      value="$(find yolo_detector)/darknet_opt/yolov3.weights"/>
     <param name="encoding_type"                      value="32FC1"/>
     <param name="in_mm"                      value="1"/>
     

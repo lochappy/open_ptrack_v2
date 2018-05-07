@@ -33,6 +33,9 @@ file(GLOB CUDA_SRC_LIST "${DARKNET_SRC_DIR}/src/*.cu")
 file(GLOB H_LIST "${DARKNET_SRC_DIR}/src/*.h")
 list (REMOVE_ITEM SRC_LIST ${DARKNET_SRC_DIR}/src/darknet.c)
 
+file(GLOB COMPARE_C "${DARKNET_SRC_DIR}/src/compare.c")
+list (REMOVE_ITEM SRC_LIST ${COMPARE_C})
+
 
 include_directories(
   include
@@ -40,6 +43,7 @@ include_directories(
 	${OpenCV_INCLUDE_DIRS}
 	${CUDA_INCLUDE_DIRS}
 	${DARKNET_SRC_DIR}/src
+	${DARKNET_SRC_DIR}/include
 	/usr/local/cuda/include #for CuDNN, CuBLAS, CuRAND
 )
 

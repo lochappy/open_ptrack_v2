@@ -20,11 +20,12 @@ typedef struct boxInfo
 	//IplImage* im;
 } boxInfo;
 
-box* init_boxes(network net);
-float** init_probs(network net);
+box* init_boxes(network *net);
+float** init_probs(network *net);
 
 image **load_alphabet_(char* path);
 void extractPerson(int imW, int imH, int num, float thresh, box *boxes, float **probs, char **names, int classes, boxInfo *result);
 
-void run_yolo_detection(image im, network net, box *boxes, float **probs, float thresh, float hier_thresh, char **names, boxInfo *result);
+void run_yolo_detection(image im, network *net, box *boxes, float **probs, float thresh, float hier_thresh, char **names, boxInfo *result);
+void run_yolo_detection_v2(image im, network *net, float thresh, float hier_thresh, char **names, boxInfo *result);
 

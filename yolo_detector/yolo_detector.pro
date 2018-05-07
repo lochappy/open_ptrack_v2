@@ -10,11 +10,11 @@ CONFIG -= app_bundle
 TEMPLATE = app
 
 DEFINES += OPENCV
-INCLUDEPATH += /usr/local/opencv3/include
-LIBS += "/usr/local/opencv3/lib/libopencv*.so"
+LIBS += -lopencv_world
 
 INCLUDEPATH += $$PWD/darknet_opt/include
 INCLUDEPATH += $$PWD/darknet_opt/src
+INCLUDEPATH += $$PWD/include
 
 QMAKE_CXXFLAGS_DEBUG += -O4 -g
 QMAKE_CFLAGS_DEBUG += -O4 -g
@@ -65,8 +65,10 @@ SOURCES += \
     darknet_opt/src/upsample_layer.c \
     darknet_opt/src/utils.c \
     darknet_opt/src/yolo_layer.c \
-    main.cpp
-
+    main.cpp \
+    include/run_yolo.c \
+    src/yolo_based_people_detector_node.cpp
+SOURCES -= src/yolo_based_people_detector_node.cpp
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -126,7 +128,8 @@ HEADERS += \
     darknet_opt/src/tree.h \
     darknet_opt/src/upsample_layer.h \
     darknet_opt/src/utils.h \
-    darknet_opt/src/yolo_layer.h
+    darknet_opt/src/yolo_layer.h \
+    include/run_yolo.h
 
 DISTFILES += \
     darknet_opt/src/activation_kernels.cu \

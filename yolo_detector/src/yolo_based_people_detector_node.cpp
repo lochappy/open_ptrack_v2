@@ -54,7 +54,7 @@ typedef sensor_msgs::Image Image;
 
 namespace enc = sensor_msgs::image_encodings;
 
-network net;
+static network *net;
 char **names;
 image **alphabet;
 box *boxes_y;
@@ -179,9 +179,10 @@ void callback(const Image::ConstPtr& rgb_image,
 		boxes->boxes = (adjBox*)calloc(200, sizeof(adjBox));
 		
 		//std::cout << "ENTER C CODE" << std::endl;
-		run_yolo_detection(im, net, boxes_y, probs, thresh,  hier_thresh, names, boxes);
+        //run_yolo_detection(im, net, boxes_y, probs, thresh,  hier_thresh, names, boxes);
+        run_yolo_detection_v2(im, net, thresh,  hier_thresh, names, boxes);
 		
-		//printf( "Num of people here = %d\n", boxes->num);
+        //printf( "Num of people here = %d\n", boxes->num);
 		//double duration = ros::Time::now().toSec() - begin.toSec();
 
 		//std::cout << "Time Duration: " << duration<< std::endl;
@@ -244,6 +245,8 @@ void callback(const Image::ConstPtr& rgb_image,
 				cv::rectangle(image, cv::Point( boxes->boxes[i].x, boxes->boxes[i].y ), 
 									 cv::Point( boxes->boxes[i].x+ boxes->boxes[i].w, boxes->boxes[i].y+ boxes->boxes[i].h), cv::Scalar( 255, 0, 255 ), 10);
 				//cv::putText(image, ss.str(), cv::Point(30,30), cv::FONT_HERSHEY_COMPLEX_SMALL, 0.8, cv::Scalar(200,200,250), 1, CV_AA);
+                cv::imshow("image",image);
+                cv::waitKey(1);
 			}
 			
 			float mx =  (medianX - _cx) * medianDepth * _constant_x;
@@ -361,15 +364,15 @@ int main(int argc, char** argv)
 	nh.param("root", root_str, std::string("home"));
 	
     net = parse_network_cfg( (char*)cfgfile.c_str() );
-	char *arr = (char*)((void*) &(net.layers[0]));
+    char *arr = (char*)((void*) &(net->layers[0]));
 
 	printf("exit");
     //printf( "detect layer  w = %d h = %d n = %d max = %d\n",  ((layer)arr[(net.n - 1)*sizeof_layer()]).w, net.layers[net.n-1].h, net.layers[net.n-1].n, net.layers[net.n-1].w*net.layers[net.n-1].h*net.layers[net.n-1].n );
 	//printf( "detect layer  w = %d h = %d n = %d max = %d\n",  layers.w, layers.h, layers.n, layers.w*layers.h*layers.n );
-    load_weights( &net, (char*)weightfile.c_str() );
+    load_weights( net, (char*)weightfile.c_str() );
     
     
-    set_batch_network( &net, 1 );
+    set_batch_network( net, 1 );
 	srand(2222222);
 	
 	boxes_y = init_boxes(net);
